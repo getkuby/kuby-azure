@@ -1,5 +1,6 @@
 require 'fileutils'
 require 'azure_mgmt_container_service'
+require 'tmpdir'
 
 module Kuby
   module Azure
@@ -13,13 +14,9 @@ module Kuby
       end
 
       def kubeconfig_path
-        @kubeconfig_path ||= kubeconfig_dir.join(
-          "#{definition.app_name.downcase}-kubeconfig.yaml"
-        ).to_s
-      end
-
-      def after_configuration
-        refresh_kubeconfig
+        @kubeconfig_path ||= File.join(
+          kubeconfig_dir, "#{definition.app_name.downcase}-kubeconfig.yaml"
+        )
       end
 
       def storage_class_name
@@ -30,6 +27,10 @@ module Kuby
 
       def after_initialize
         @config = Config.new
+
+        kubernetes_cli.before_execute do
+          refresh_kubeconfig
+        end
       end
 
       def client
@@ -70,8 +71,8 @@ module Kuby
       end
 
       def kubeconfig_dir
-        @kubeconfig_dir ||= definition.app.root.join(
-          'tmp', 'kuby-azure'
+        @kubeconfig_dir ||= File.join(
+          Dir.tmpdir, 'kuby-azure'
         )
       end
     end
