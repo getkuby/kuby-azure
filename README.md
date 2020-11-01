@@ -13,30 +13,32 @@ All providers adhere to a specific interface, meaning you can swap out one provi
 Enable the Azure provider like so:
 
 ```ruby
-Kuby.define(:production) do
-  kubernetes do
+Kuby.define('MyApp') do
+  environment(:production) do
+    kubernetes do
 
-    provider :azure do
-      # Visible in the subscription overview.
-      subscription_id 'my-subscription-id'
+      provider :azure do
+        # Visible in the subscription overview.
+        subscription_id 'my-subscription-id'
 
-      # Visible in Azure Active Directory.
-      tenant_id 'my-tenant-id'
+        # Visible in Azure Active Directory.
+        tenant_id 'my-tenant-id'
 
-      # These must be configured in Azure Active Directory -> App
-      # Registrations. It's easiest to generate a client id and
-      # secret for the service principal.
-      client_id 'my-client-id'
-      client_secret 'my-client-secret'
+        # These must be configured in Azure Active Directory -> App
+        # Registrations. It's easiest to generate a client id and
+        # secret for the service principal.
+        client_id 'my-client-id'
+        client_secret 'my-client-secret'
 
-      # Your cluster should have been created inside a resource group.
-      # Put its name here.
-      resource_group_name 'my-resource-group-name'
+        # Your cluster should have been created inside a resource group.
+        # Put its name here.
+        resource_group_name 'my-resource-group-name'
 
-      # The name of your cluster.
-      resource_name 'my-resource-name'
+        # The name of your cluster.
+        resource_name 'my-resource-name'
+      end
+
     end
-
   end
 end
 ```
