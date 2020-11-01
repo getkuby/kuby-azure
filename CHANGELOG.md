@@ -1,3 +1,6 @@
+## 0.3.1
+* Add a unique hash of the configuration options to the kubeconfig path (#1, @pandwoter)
+
 ## 0.3.0
 * Accept `environment` instead of `definition` instances.
 

@@ -17,14 +17,7 @@ module Kuby
       def kubeconfig_path
         File.join(
           kubeconfig_dir,
-          "#{environment.app_name.downcase}" \
-          "-#{generate_hash(config.subscription_id,
-                            config.tenant_id,
-                            config.client_id,
-                            config.client_secret,
-                            config.resource_group_name,
-                            config.resource_name)}" \
-          "-kubeconfig.yaml"
+          "#{environment.app_name.downcase}-#{config.hash_value}-kubeconfig.yaml"
         )
       end
 
@@ -91,11 +84,6 @@ module Kuby
         @kubeconfig_dir ||= File.join(
           Dir.tmpdir, 'kuby-azure'
         )
-      end
-
-      def generate_hash(*args)
-        to_encode = args.join('_')
-        Digest::SHA1.hexdigest(to_encode)
       end
     end
   end
