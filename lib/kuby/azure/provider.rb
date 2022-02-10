@@ -74,7 +74,8 @@ module Kuby
       end
 
       def can_communicate_with_cluster?
-        cmd = [kubernetes_cli.executable, '--kubeconfig', kubeconfig_path, 'get', 'ns']
+        cli = ::KubernetesCLI.new(kubeconfig_path)
+        cmd = [cli.executable, '--kubeconfig', kubeconfig_path, 'get', 'ns']
         `#{cmd.join(' ')}`
         $?.success?
       end

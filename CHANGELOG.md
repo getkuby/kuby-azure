@@ -1,3 +1,7 @@
+## 0.3.3
+* Avoid using `kubernetes_cli` during kubeconfig refresh.
+  - Fixes infinite recursion.
+
 ## 0.3.2
 * Refresh kubeconfig before CLI object is constructed.
 
