@@ -1,3 +1,6 @@
+## 0.3.2
+* Refresh kubeconfig before CLI object is constructed.
+
 ## 0.3.1
 * Add a unique hash of the configuration options to the kubeconfig path (#1, @pandwoter)
 

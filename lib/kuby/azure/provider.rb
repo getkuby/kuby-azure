@@ -25,22 +25,18 @@ module Kuby
         STORAGE_CLASS_NAME
       end
 
-      def before_setup
-        refresh_kubeconfig
-      end
-
-      def before_deploy(*)
-        refresh_kubeconfig
+      def kubernetes_cli
+        @kubernetes_cli ||= begin
+          refresh_kubeconfig
+          super
+        end
       end
 
       private
 
       def after_initialize
         @config = Config.new
-
-        kubernetes_cli.before_execute do
-          refresh_kubeconfig
-        end
+        @kubeconfig_refreshed = false
       end
 
       def client
@@ -67,10 +63,13 @@ module Kuby
         kubeconfig = cred.kubeconfigs.first.value.pack('C*')
         File.write(kubeconfig_path, kubeconfig)
 
+        @kubeconfig_refreshed = true
+
         Kuby.logger.info('Successfully refreshed kubeconfig!')
       end
 
       def should_refresh_kubeconfig?
+        return false if @kubeconfig_refreshed
         !File.exist?(kubeconfig_path) || !can_communicate_with_cluster?
       end
 
