@@ -6,7 +6,7 @@ module Kuby
     class Config
       extend ::KubeDSL::ValueFields
 
-      value_fields :tenant_id, :client_id, :client_secret, :subscription_id
+      value_fields :tenant_id, :client_id, :client_secret, :subscription_id, :credentials
       value_fields :resource_group_name, :resource_name
 
       def hash_value

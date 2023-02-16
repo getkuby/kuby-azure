@@ -44,7 +44,8 @@ module Kuby
           tenant_id: config.tenant_id,
           client_id: config.client_id,
           client_secret: config.client_secret,
-          subscription_id: config.subscription_id
+          subscription_id: config.subscription_id,
+          credentials: config.credentials
         )
       end
 
