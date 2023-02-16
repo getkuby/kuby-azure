@@ -1,3 +1,6 @@
+## 0.4.0
+* Allow configuring a `credentials` object so it's possible to auth without a client secret.
+
 ## 0.3.3
 * Avoid using `kubernetes_cli` during kubeconfig refresh.
   - Fixes infinite recursion.
