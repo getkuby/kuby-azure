@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'kuby-core', path: '../kuby-core'
+gem 'kuby-core'
 
 group :development, :test do
   gem 'pry-byebug'
